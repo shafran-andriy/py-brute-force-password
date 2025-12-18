@@ -2,7 +2,6 @@ from random import randint
 import time
 from hashlib import sha256
 import multiprocessing
-import httpx
 
 
 PASSWORDS_TO_BRUTE_FORCE = [
@@ -23,7 +22,7 @@ def sha256_hash_str(to_hash: str) -> str:
     return sha256(to_hash.encode("utf-8")).hexdigest()
 
 def brute_force_single_password(password: str) -> int:
-        for result in range(10000000, 100000000, 1):
+        for result in range(10_000_000, 100_000_000, 1):
             if sha256_hash_str(str(result)) == password:
                 return result
                 break
@@ -38,7 +37,7 @@ def brute_force_password() -> None:
             )
         )
         tasks[-1].start()
-
+        
     for task in tasks:
         task.join()
 
