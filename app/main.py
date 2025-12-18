@@ -29,7 +29,7 @@ def brute_force_single_password(password: str) -> int:
 
 def brute_force_password() -> None:
     tasks = []
-    for password in enumerate(PASSWORDS_TO_BRUTE_FORCE):
+    for password in PASSWORDS_TO_BRUTE_FORCE:
         tasks.append(
             multiprocessing.Process(
                 target=brute_force_single_password,
