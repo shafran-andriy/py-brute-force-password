@@ -28,19 +28,9 @@ def brute_force_single_password(password: str) -> int:
                 break
 
 def brute_force_password() -> None:
-    tasks = []
-    for password in PASSWORDS_TO_BRUTE_FORCE:
-        tasks.append(
-            multiprocessing.Process(
-                target=brute_force_single_password,
-                args=(password,)
-            )
-        )
-        tasks[-1].start()
-        
-    for task in tasks:
-        task.join()
-
+    with multiprocessing.Pool(len(PASSWORDS_TO_BRUTE_FORCE)) as pool:
+        [res.get() for res in [pool.apply_async(brute_force_single_password, (password,))
+                               for password in set(PASSWORDS_TO_BRUTE_FORCE)]]
 
 if __name__ == "__main__":
     start_time = time.perf_counter()
