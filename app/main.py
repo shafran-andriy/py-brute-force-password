@@ -22,8 +22,8 @@ def sha256_hash_str(to_hash: str) -> str:
     return sha256(to_hash.encode("utf-8")).hexdigest()
 
 def brute_force_single_password(password: str) -> int:
-        for result in range(10_000_000, 100_000_000, 1):
-            if sha256_hash_str(str(result)) == password:
+        for result in range(0, 99_999_999, 1):
+            if sha256_hash_str(str(result).zfill(8)) == password:
                 print(result)
                 break
 
